@@ -3,9 +3,9 @@
         <template #start>
             <p class="text-3xl font-semibold">Lane Management System</p>
         </template>
-        <template #item="{ label }">
+        <template #item="{label }">
             <div class="cursor-pointer" @click="navigate(label as string)">
-                <Button style="width: 100%;" :label="(label as string)" text></Button>
+                <Button style="width: 100%;" :label="(label as string)" text :icon="getIcon(label as string)"></Button>
             </div>
         </template>
     </Menubar>
@@ -31,11 +31,23 @@ const items = ref([
 const navigate = (to: string) => {
     router.push({path: to.toLocaleLowerCase()});
 }
+
+const getIcon = (label: string) => {
+    if (label == 'Home') {
+        return 'pi pi-home';
+    } else if (label == 'Notes') {
+        return 'pi pi-lock'
+    }
+}
 </script>
 
 <style>
 .p-menubar-root-list, .p-menubar-button {
   position: absolute;
-  right: 20px;
+  right: 30px;
+}
+
+.p-button-icon {
+    margin-right: 10px;
 }
 </style>
