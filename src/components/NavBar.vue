@@ -1,7 +1,7 @@
 <template>
     <Menubar :model="items">
         <template #start>
-            <p class="text-xl">Lane Management System</p>
+            <p class="text-3xl font-semibold">Lane Management System</p>
         </template>
         <template #item="{ label }">
             <div class="cursor-pointer" @click="navigate(label as string)">
@@ -21,10 +21,7 @@ const router = useRouter();
 
 const items = ref([
     {
-        label: 'Overview',
-    },
-    {
-        label: 'Resources',
+        label: 'Home',
     },
     {
         label: 'Notes',

@@ -1,5 +1,5 @@
 <template>
-  <NavBar></NavBar>
+  <NavBar class="mb-3"></NavBar>
   <RouterView />
 </template>
 
