@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-content-center align-items-center m-3">
         <h2 style="order: 1">Meeting Notes</h2>
-        <Button class="ml-auto" style="order: 2" label="New Note" @click="displayAddNote = true"></Button>
+        <Button v-if="permissionStore.isAdmin" class="ml-auto" style="order: 2" label="New Note" @click="displayAddNote = true"></Button>
     </div>
     <Accordion :activeIndex="0">
         <AccordionTab v-for="note in notes" :key="note.timestamp">
@@ -28,9 +28,11 @@ import Button from 'primevue/button';
 import AddNote from '../components/NotesView/AddNote.vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
 import { getRemote, type Note } from '@/utils/firebase';
+import { usePermissionStore } from '@/stores/permission';
 
 const displayAddNote = ref(false);
 const notes: Ref<Array<Note>> = ref([]);
+const permissionStore = ref(usePermissionStore());
 
 onBeforeMount(async () => {
     await getNotes();

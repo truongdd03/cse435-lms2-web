@@ -44,7 +44,7 @@ import { scroll } from '../../utils/scroll';
 .icon-wrapper {
     width: 100%;
     position: absolute;
-    bottom: 25px;
+    bottom: 10%;
     text-align: center;
 }
 </style>
