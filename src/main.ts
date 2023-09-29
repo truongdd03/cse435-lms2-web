@@ -6,6 +6,8 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+import './firebase.config';
+
 import PrimeVue from 'primevue/config';
 import '/node_modules/primeflex/primeflex.css';
 import "primevue/resources/themes/md-dark-indigo/theme.css";
