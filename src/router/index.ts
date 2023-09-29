@@ -19,21 +19,30 @@ const router = createRouter({
       path: '/notes',
       name: 'notes',
       component: NotesView,
-      beforeEnter(to, from, next) {
-        const password = window.prompt("Enter Password (Same as our Zoom lecture)");
-        if (password == import.meta.env.VITE_NOTE_PASSWORD) {
-          next();
-        } else if (password == import.meta.env.VITE_ADMIN_PASSWORD) {
-          const permissionStore = usePermissionStore();
-          permissionStore.setAdmin();
-          next();
-        } else {
-          next('/home');
-          window.alert("Wrong Password!");
-        }
-      }
     },
   ]
 })
+
+router.beforeEach((to) => {
+  console.log(to);
+  if (to.path == '/notes') {
+    const password = window.prompt("Enter Password (Same as our Zoom lecture)");
+
+    if (password == import.meta.env.VITE_NOTE_PASSWORD) {
+      return true;
+    } else if (password == import.meta.env.VITE_ADMIN_PASSWORD) {
+      const permissionStore = usePermissionStore();
+      permissionStore.setAdmin();
+      return true;
+    }
+
+    window.alert("Wrong Password!");
+    return {
+      name: "home"
+    }
+  } else {
+    return true;
+  }
+});
 
 export default router
