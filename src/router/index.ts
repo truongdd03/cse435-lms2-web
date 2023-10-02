@@ -26,7 +26,7 @@ const router = createRouter({
 router.beforeEach((to) => {
   console.log(to);
   if (to.path == '/notes') {
-    const password = window.prompt("Enter Password (Same as our Zoom lecture)");
+    const password = window.prompt("Enter Password");
 
     if (password == import.meta.env.VITE_NOTE_PASSWORD) {
       return true;
