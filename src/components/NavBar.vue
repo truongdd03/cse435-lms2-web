@@ -1,7 +1,7 @@
 <template>
     <Menubar :model="items">
         <template #start>
-            <p class="text-3xl font-semibold">Lane Management System</p>
+            <p class="ml-3 text-3xl font-bold cursor-pointer" @click="navigate('Home')">Lane Management System</p>
         </template>
         <template #item="{label }">
             <div class="cursor-pointer" @click="navigate(label as string)">

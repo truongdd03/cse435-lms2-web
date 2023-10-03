@@ -10,7 +10,7 @@ import './firebase.config';
 
 import PrimeVue from 'primevue/config';
 import '/node_modules/primeflex/primeflex.css';
-import "primevue/resources/themes/md-dark-indigo/theme.css";
+import "primevue/resources/themes/viva-dark/theme.css";
 import 'primeicons/primeicons.css';
 
 const app = createApp(App)

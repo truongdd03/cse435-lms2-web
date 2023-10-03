@@ -4,7 +4,7 @@
         <template #content>
             <Carousel :value="members" :numVisible="4" :numScroll="1" :responsive-options="responsiveOptions" :autoplay-interval="3000" :circular="true">
                 <template #item="slotProps">
-                    <div class="border-1 border-primary border-round m-2 text-center py-5 px-3">
+                    <div class="border-1 border-round m-2 text-center py-5 px-3">
                         <div class="mb-2">
                             <img class="avatar border-round" :src="slotProps.data.image" />
                         </div>

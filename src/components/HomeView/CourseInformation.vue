@@ -4,8 +4,8 @@
             <template #title>About CSE 435 - Software Engineering</template>
             <template #content>
                 <p>Software lifecycle including specification, design, coding, testing, and verification of a software product. Stepwise refinement and traceability. Software maintenance and documentation.</p>
-                <Button class="m-2 mt-3" label="Website" outlined @click="openUrl('https://www.cse.msu.edu/~cse435/')"></Button>
-                <Button class="m-2" label="Dr. Betty H.C. Cheng" outlined @click="openUrl('http://www.cse.msu.edu/~chengb/')"></Button>
+                <Button class="m-2 mt-3" icon="pi pi-external-link" label="Website" outlined @click="openUrl('https://www.cse.msu.edu/~cse435/')"></Button>
+                <Button class="m-2" icon="pi pi-external-link" label="Dr. Betty H.C. Cheng" outlined @click="openUrl('http://www.cse.msu.edu/~chengb/')"></Button>
             </template>
         </Card>
         <img
