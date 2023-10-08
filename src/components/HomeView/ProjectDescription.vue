@@ -25,7 +25,7 @@
                 </div>
                 <Button class="m-2" icon="pi pi-external-link" label="Full Description (PDF)" outlined @click="openProject"></Button>
                 <Button class="m-2" label="SRS" outlined></Button>
-                <Button class="m-2" label="Prototype" outlined></Button>
+                <Button class="m-2" label="Prototype" outlined @click="navigate('prototype')"></Button>
                 <Button class="m-2" label="Bibliography" outlined></Button>
             </template>
         </Card>
@@ -38,9 +38,16 @@ import Button from 'primevue/button';
 
 import Project from '/assets/2023-LMS-GM-Agrawal.pdf';
 import image from '/assets/images/highway.jpeg';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const openProject = () => {
     window.open(Project);
+}
+
+const navigate = (path: string) => {
+    router.push({path: path});
 }
 </script>
 

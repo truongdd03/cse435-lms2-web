@@ -24,6 +24,9 @@ const items = ref([
         label: 'Home',
     },
     {
+        label: 'Prototype',
+    },
+    {
         label: 'Notes',
     }
 ]);
@@ -36,7 +39,9 @@ const getIcon = (label: string) => {
     if (label == 'Home') {
         return 'pi pi-home';
     } else if (label == 'Notes') {
-        return 'pi pi-lock'
+        return 'pi pi-lock';
+    } else if (label == 'Prototype') {
+        return 'pi pi-car';
     }
 }
 </script>

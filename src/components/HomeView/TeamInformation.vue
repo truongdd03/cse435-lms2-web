@@ -2,14 +2,14 @@
     <Card>
         <template #title>About Us</template>
         <template #content>
-            <Carousel :value="members" :numVisible="4" :numScroll="1" :responsive-options="responsiveOptions" :autoplay-interval="3000" :circular="true">
+            <Carousel :value="members" :numVisible="4" :numScroll="1" :responsive-options="responsiveOptions" :circular="true">
                 <template #item="slotProps">
                     <div class="border-1 border-round m-2 text-center py-5 px-3">
                         <div class="mb-2">
                             <img class="avatar border-round" :src="slotProps.data.image" />
                         </div>
                         <div>
-                            <Button :label="slotProps.data.name" link @click="navigate(slotProps.data.url)" />
+                            <Button :label="slotProps.data.name" link @click="openUrl(slotProps.data.url)" />
                             <p style="margin-top: -5px;">{{ slotProps.data.role }}</p>
                         </div>
                     </div>
@@ -28,8 +28,8 @@ import { ref } from 'vue';
 import Don from '/assets/images/don.jpeg';
 import Joanna from '/assets/images/joanna.jpeg';
 import Kay from '/assets/images/kay.jpeg';
-import Kimberly from '/assets/images/kimberly.jpeg';
 import Evan from '/assets/images/evan.jpeg';
+import { openUrl } from '@/utils/scroll';
 
 const members = ref([
     {
@@ -37,12 +37,6 @@ const members = ref([
         image: Kay,
         role: "Project Manager",
         url: "https://www.linkedin.com/in/katelyn-hurst/"
-    },
-    {
-        name: "Kimberly Jackson",
-        image: Kimberly,
-        role: "Project Facilitator",
-        url: "https://www.linkedin.com/in/kimberly-jackson1223"
     },
     {
         name: "Don Truong",
@@ -63,10 +57,6 @@ const members = ref([
         url: "https://www.linkedin.com/in/evan-stanislaw/"
     },
 ]);
-
-const navigate = (url: string) => {
-    window.open(url, '_blank');
-}
 
 const responsiveOptions = ref([
     {

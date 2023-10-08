@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import NotesView from '../views/NotesView.vue'
 import { usePermissionStore } from '@/stores/permission';
+import PrototypeView from '@/views/PrototypeView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,11 @@ const router = createRouter({
       path: '/notes',
       name: 'notes',
       component: NotesView,
+    },
+    {
+      path: '/prototype',
+      name: 'prototype',
+      component: PrototypeView,
     },
   ]
 })

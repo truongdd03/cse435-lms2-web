@@ -1,6 +1,6 @@
 # cse435-lms2-web
 
-This website is live [here](https://cse435-lms2-web.web.app/home).
+This website is live [here](https://cse.msu.edu/~truongd1/).
 
 ## Recommended IDE Setup
 

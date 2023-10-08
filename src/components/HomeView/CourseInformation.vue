@@ -21,10 +21,7 @@ import Card from 'primevue/card';
 import Button from 'primevue/button';
 
 import image from '/assets/images/cse435.jpeg';
-
-const openUrl = (url: string) => {
-    window.open(url, '_blank');
-}
+import { openUrl } from '@/utils/scroll';
 </script>
 
 <style scoped>
