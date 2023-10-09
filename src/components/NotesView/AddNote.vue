@@ -41,7 +41,7 @@ const close = () => {
 }
 
 const formatDate = (date: Date) => {
-    return date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear();
+    return date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
 }
 
 const save = async () => {

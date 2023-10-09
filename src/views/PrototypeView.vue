@@ -13,6 +13,7 @@ import UnityWebgl from 'unity-webgl';
 import VueUnity from 'unity-webgl/vue'
 
 const get = (url: string) => {
+    // return url;
     return 'https://cse.msu.edu/~truongd1' + url;
 }
 
