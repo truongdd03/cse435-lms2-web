@@ -27,7 +27,7 @@ const items = ref([
         label: 'Prototype',
     },
     {
-        label: 'Notes',
+        label: 'Local',
     }
 ]);
 
@@ -38,7 +38,7 @@ const navigate = (to: string) => {
 const getIcon = (label: string) => {
     if (label == 'Home') {
         return 'pi pi-home';
-    } else if (label == 'Notes') {
+    } else if (label == 'Local') {
         return 'pi pi-lock';
     } else if (label == 'Prototype') {
         return 'pi pi-car';

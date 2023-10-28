@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import NotesView from '../views/NotesView.vue'
+import LocalView from '../views/LocalView.vue'
 import { usePermissionStore } from '@/stores/permission';
 import PrototypeView from '@/views/PrototypeView.vue';
+import BibliographyView from '@/views/BibliographyView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,21 +18,26 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/notes',
-      name: 'notes',
-      component: NotesView,
+      path: '/local',
+      name: 'local',
+      component: LocalView,
     },
     {
       path: '/prototype',
       name: 'prototype',
       component: PrototypeView,
     },
+    {
+      path: '/bibliography',
+      name: 'bibliography',
+      component: BibliographyView,
+    }
   ]
 })
 
 router.beforeEach((to) => {
   console.log(to);
-  if (to.path == '/notes') {
+  if (to.path == '/local') {
     const password = window.prompt("Enter Password");
 
     if (password == import.meta.env.VITE_NOTE_PASSWORD) {

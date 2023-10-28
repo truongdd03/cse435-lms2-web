@@ -26,7 +26,7 @@
                 <Button class="m-2" icon="pi pi-external-link" label="Full Description (PDF)" outlined @click="openProject"></Button>
                 <Button class="m-2" label="SRS" outlined></Button>
                 <Button class="m-2" label="Prototype" outlined @click="navigate('prototype')"></Button>
-                <Button class="m-2" label="Bibliography" outlined></Button>
+                <Button class="m-2" label="Bibliography" outlined @click="navigate('bibliography')"></Button>
             </template>
         </Card>
     </div>

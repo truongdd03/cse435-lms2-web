@@ -29,7 +29,7 @@ import Card from 'primevue/card';
 import Calendar from 'primevue/calendar';
 import Editor from 'primevue/editor';
 import { ref } from 'vue';
-import { updateRemote } from '../../utils/firebase';
+import { updateRemote } from '../../../utils/firebase';
 
 const emits = defineEmits(["close", "save"]);
 
