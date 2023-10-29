@@ -12,10 +12,6 @@
         </AccordionTab>
     </Accordion>
 
-    <div>
-        <p v-if="notes.length == 0" class="text-center text-color-secondary">Nothing's here yet.</p>
-    </div>
-
     <!-- Pop-up to add note -->
     <AddNote v-if="displayAddNote" @close="displayAddNote = false"></AddNote>
 </template>

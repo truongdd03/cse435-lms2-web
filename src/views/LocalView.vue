@@ -1,6 +1,6 @@
 <template>
     <h2 class="text-center m-3">Local Information</h2>
-    <TabView v-model:activeIndex="active">
+    <TabView v-model:activeIndex="active" :scrollable="true">
         <TabPanel header="Milestones">
             <MilestonesPanel></MilestonesPanel>
         </TabPanel>

@@ -47,15 +47,17 @@ onBeforeMount(async () => {
     const milestones = await getMilestones();
     milestones.forEach((milestone) => {
         let color = 'yellow';
+        let label = milestone.label;
         const date = new Date(milestone.date);
         if (date < new Date()) {
             color = 'green';
+            label += " - Completed";
         }
         attributes.value.push({
             highlight: color,
             dates: date,
             popover: {
-                label: milestone.label,
+                label,
             }
         });
     });
