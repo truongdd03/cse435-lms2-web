@@ -1,6 +1,9 @@
 <template>
     <h2 class="text-center m-3">Local Information</h2>
     <TabView v-model:activeIndex="active">
+        <TabPanel header="Milestones">
+            <MilestonesPanel></MilestonesPanel>
+        </TabPanel>
         <TabPanel header="Meeting Notes">
             <NotesPanel></NotesPanel>
         </TabPanel>
@@ -21,6 +24,7 @@ import TabPanel from 'primevue/tabpanel';
 
 import NotesPanel from '../components/LocalView/NotesPanel/NotesPanel.vue';
 import DocumentsPanel from '../components/LocalView/DocumentsPanel/DocumentsPanel.vue';
+import MilestonesPanel from '../components/LocalView/MilestonesPanel/MilestonesPanel.vue';
 
 const active = ref(0);
 </script>

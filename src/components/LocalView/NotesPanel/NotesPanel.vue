@@ -1,9 +1,9 @@
 <template>
     <div class="m-3 flex" v-if="permissionStore.isAdmin">
-        <Button class="ml-auto" style="order: 2" label="New Note" @click="displayAddNote = true"></Button>
+        <Button class="ml-auto" style="order: 2" label="New Note" @click="displayAddNote = true" outlined></Button>
     </div>
     <Accordion :activeIndex="0">
-        <AccordionTab v-for="note in notes" :key="note.timestamp">
+        <AccordionTab v-for="note in useNotesStore().notes" :key="note.timestamp">
             <template #header>
                 <i class="pi pi-calendar" style="font-size: 1.3rem"></i>
                 <h3 class="ml-2 mr-2">{{ note.date }}</h3>
@@ -17,7 +17,7 @@
     </div>
 
     <!-- Pop-up to add note -->
-    <AddNote v-if="displayAddNote" @close="displayAddNote = false" @save="getNotes"></AddNote>
+    <AddNote v-if="displayAddNote" @close="displayAddNote = false"></AddNote>
 </template>
 
 <script setup lang="ts">
@@ -26,18 +26,16 @@ import AccordionTab from 'primevue/accordiontab';
 import Button from 'primevue/button';
 import AddNote from './AddNote.vue';
 import { onBeforeMount, ref, type Ref } from 'vue';
-import { getRemote, type Note } from '../../../utils/firebase';
+import { type Note } from '../../../utils/firebase';
 import { usePermissionStore } from '../../../stores/permission';
+import { useNotesStore } from '@/stores/note';
 
 const displayAddNote = ref(false);
 const notes: Ref<Array<Note>> = ref([]);
 const permissionStore = ref(usePermissionStore());
 
 onBeforeMount(async () => {
-    await getNotes();
+    await useNotesStore().fetchNotes();
 });
 
-const getNotes = async () => {
-    notes.value = await getRemote();
-}
 </script>

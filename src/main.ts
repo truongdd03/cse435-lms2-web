@@ -13,10 +13,15 @@ import '/node_modules/primeflex/primeflex.css';
 import "primevue/resources/themes/viva-dark/theme.css";
 import 'primeicons/primeicons.css';
 
+import VCalendar from 'v-calendar';
+import 'v-calendar/style.css';
+
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(PrimeVue)
+
+app.use(VCalendar, {})
 
 app.mount('#app')

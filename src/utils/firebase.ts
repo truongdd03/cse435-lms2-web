@@ -6,6 +6,12 @@ export interface Note {
     date: string,
 }
 
+export interface Milestones {
+    label: string,
+    date: string,
+    color: string,
+}
+
 export const updateRemote = async (date: string, content: string) => {
     const database = getDatabase();
     const now = Date.now();
@@ -37,4 +43,22 @@ export const getRemote = async (): Promise<Array<Note>> => {
     });
 
     return items.map((item) => item[1] as Note);
+}
+
+export const getMilestones = async () : Promise<Array<Milestones>>  => {
+    const dbRef = ref(getDatabase());
+    const rawMilestones = await get(child(dbRef, `milestones`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            return snapshot.val();
+        } else {
+            return [];
+        }
+    });
+
+    // Create items array
+    const items = Object.keys(rawMilestones).map(function(key) {
+        return [key, rawMilestones[key]];
+    });
+
+    return items.map((item) => item[1] as Milestones);
 }
