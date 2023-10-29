@@ -2,8 +2,8 @@
     <div class="wrapper">
         <div class="image p-5">
             <div>
-                <h1>Lane Management System</h1>
-                <h3 class="text-center mt-2">MSU - CSE 435 - LMS2</h3>
+                <h1 class="animate__animated animate__fadeIn">Lane Management System</h1>
+                <h3 class="text-center mt-2 animate__animated animate__fadeIn">MSU - CSE 435 - LMS2</h3>
             </div>
         </div>
 

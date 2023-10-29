@@ -21,13 +21,11 @@ import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
 import Button from 'primevue/button';
 import AddNote from './AddNote.vue';
-import { onBeforeMount, ref, type Ref } from 'vue';
-import { type Note } from '../../../utils/firebase';
+import { onBeforeMount, ref } from 'vue';
 import { usePermissionStore } from '../../../stores/permission';
 import { useNotesStore } from '@/stores/note';
 
 const displayAddNote = ref(false);
-const notes: Ref<Array<Note>> = ref([]);
 const permissionStore = ref(usePermissionStore());
 
 onBeforeMount(async () => {

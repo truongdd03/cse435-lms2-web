@@ -1,71 +1,77 @@
 <template>
-    <div class="flex justify-content-center mt-5 mb-5">
-        <div class="w-6">
-            <VCalendar :attributes="attributes" :columns="columns" isDark="true" color="blue" borderless expanded />
+    <Dialog v-model:visible="visible" modal :header="selectedEvent?.title" :style="{ width: '50vw' }">
+        <span v-html="selectedEvent?.content" />
+    </Dialog>
+    <div class="flex justify-content-center">
+        <div style="width: 800px;">
+            <FullCalendar :options="calendarOptions">
+            </FullCalendar>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onBeforeMount, type Ref } from 'vue';
-import { useScreens } from 'vue-screen-utils';
 import { useNotesStore } from '@/stores/note';
 import { getMilestones } from '@/utils/firebase';
 
-const { mapCurrent } = useScreens({ xs: '0px', sm: '640px', md: '768px', lg: '1024px' });
-const columns = mapCurrent({ lg: 2 }, 1);
+import Dialog from 'primevue/dialog';
 
-const attributes: Ref<any[]> = ref([
-  {
-    highlight: true,
-    dates: new Date(),
-    popover: {
-        label: "Today"
+import FullCalendar from '@fullcalendar/vue3';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
+const visible = ref(false);
+const selectedEvent: Ref<{title: string, content: string} | null> = ref(null);
+
+const calendarOptions: Ref<any> = ref({
+    plugins: [ dayGridPlugin, interactionPlugin ],
+    initialView: 'dayGridMonth',
+    events: [],
+    eventClick: (info: any) => {
+        visible.value = true;
+        selectedEvent.value = {title: info.event.title, content: info.event.extendedProps.content};
     }
-  },
-  {
-    highlight: 'red',
-    dates: new Date('October 16, 2023'),
-    popover: {
-        label: "Meeting w/ Customer"
-    }
-  }
-]);
+});
+
+const formatDate = (date: string) => {
+    const dateObj = new Date(date);
+    return dateObj.toISOString().split('T')[0];
+}
 
 onBeforeMount(async () => {
     const meetingNotes = await useNotesStore().fetchNotes();
     meetingNotes.forEach((note) => {
-        attributes.value.push({
-            dot: true,
-            dates: new Date(note.date),
-            popover: {
-                label: "Group Meeting"
-            }
+        calendarOptions.value.events.push({
+            date: formatDate(note.date),
+            title: "Group Meeting",
+            content: note.content,
         });
     });
 
     const milestones = await getMilestones();
     milestones.forEach((milestone) => {
-        let color = 'yellow';
+        let color = milestone.color;
         let label = milestone.label;
-        const date = new Date(milestone.date);
-        if (date < new Date()) {
-            color = 'green';
-            label += " - Completed";
-        }
-        attributes.value.push({
-            highlight: color,
-            dates: date,
-            popover: {
-                label,
+        if (!milestone.color) {
+            color = 'orange';
+            const date = new Date(milestone.date);
+            if (date < new Date()) {
+                color = 'green';
+                label += " - Completed";
             }
+        }
+        calendarOptions.value.events.push({
+            date: formatDate(milestone.date),
+            title: label,
+            color,
         });
     });
 });
 </script>
 
 <style>
-.vc-arrow, .vc-title, .vc-nav-item, .vc-nav-title, .vc-nav-arrow {
-    background-color: transparent;
+.fc-event-main {
+    cursor: pointer;
 }
 </style>
