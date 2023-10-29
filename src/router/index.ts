@@ -4,6 +4,7 @@ import LocalView from '../views/LocalView.vue'
 import { usePermissionStore } from '@/stores/permission';
 import PrototypeView from '@/views/PrototypeView.vue';
 import BibliographyView from '@/views/BibliographyView.vue';
+import PageNotFoundView from '@/views/PageNotFoundView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,10 @@ const router = createRouter({
       path: '/bibliography',
       name: 'bibliography',
       component: BibliographyView,
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      component: PageNotFoundView,
     }
   ]
 })

@@ -21,8 +21,8 @@ import { ref } from 'vue';
 const showSpinner = ref(true);
 
 const get = (url: string) => {
-    return url;
-    // return 'https://cse.msu.edu/~truongd1' + url;
+    // return url;
+    return 'https://cse.msu.edu/~truongd1' + url;
 }
 
 const unityContext = new UnityWebgl({
@@ -32,7 +32,7 @@ const unityContext = new UnityWebgl({
     codeUrl: get('/assets/lms-prototype/Build/lms-prototype.wasm'),
 });
 
-unityContext.on('mounted', (unityContext) => showSpinner.value = false)
+unityContext.on('mounted', () => showSpinner.value = false)
 </script>
 
 <style scoped>
