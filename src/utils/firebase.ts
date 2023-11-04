@@ -4,6 +4,7 @@ export interface Note {
     timestamp: number,
     content: string,
     date: string,
+    time: number,
 }
 
 export interface Milestones {
@@ -13,7 +14,7 @@ export interface Milestones {
     file: string,
 }
 
-export const updateRemote = async (date: string, content: string) => {
+export const updateRemote = async (date: string, content: string, time: number) => {
     const database = getDatabase();
     const now = Date.now();
 
@@ -21,6 +22,7 @@ export const updateRemote = async (date: string, content: string) => {
         timestamp: now,
         content: content,
         date: date,
+        time: time,
     });
 }
 

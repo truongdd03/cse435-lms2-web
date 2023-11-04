@@ -6,8 +6,14 @@
             </template>
             <template #content>
                 <div class="flex align-items-center mb-3">
-                    <h3 class="mr-4">Date: </h3>
-                    <Calendar v-model="date" showIcon dateFormat="dd/mm/yy" />
+                    <div class="flex align-items-center">
+                        <h3 class="mr-4">Date: </h3>
+                        <Calendar v-model="date" showIcon dateFormat="dd/mm/yy" />
+                    </div>
+                    <div class="flex ml-auto align-items-center">
+                        <h3 class="mr-4">Time: </h3>
+                        <InputNumber v-model="time" inputId="integeronly" />
+                    </div>
                 </div>
                 <div>
                     <Editor v-model="content" editorStyle="height: 320px" />
@@ -28,12 +34,14 @@ import Button from 'primevue/button';
 import Card from 'primevue/card';
 import Calendar from 'primevue/calendar';
 import Editor from 'primevue/editor';
+import InputNumber from 'primevue/inputnumber';
 import { ref } from 'vue';
 import { updateRemote } from '../../../utils/firebase';
 
 const emits = defineEmits(["close", "save"]);
 
 const date = ref();
+const time = ref(0);
 const content = ref(`<p><strong>Agenda:</strong></p><ul><li> ...</li></ul><p><br></p><p><strong>Minutes:</strong></p><ul><li>...</li></ul><p><br></p><p><strong>Milestones:</strong></p><ul><li>...</li></ul><p><br></p><p><strong>Discussion:</strong></p><ul><li>...</li></ul><p><br></p><p><strong>Questions &amp; Answers:</strong></p><ul><li>...</li></ul><p><br></p>`);
 
 const close = () => {
@@ -50,7 +58,7 @@ const save = async () => {
         return;
     }
     try {
-        await updateRemote(formatDate(date.value), content.value);
+        await updateRemote(formatDate(date.value), content.value, time.value);
         emits("save");
         close();
     } catch (e) {

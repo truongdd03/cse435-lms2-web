@@ -11,6 +11,9 @@
         </TabPanel>
         <TabPanel header="Dialog w/ Customer">
         </TabPanel>
+        <TabPanel header="Statistics">
+            <StatisticsPanel></StatisticsPanel>
+        </TabPanel>
     </TabView>
 </template>
 
@@ -20,6 +23,7 @@ import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
 
 import NotesPanel from '../components/LocalView/NotesPanel/NotesPanel.vue';
+import StatisticsPanel from '../components/LocalView/StatisticsPanel/StatisticsPanel.vue';
 import MilestonesPanel from '../components/LocalView/MilestonesPanel/MilestonesPanel.vue';
 
 const active = ref(0);

@@ -8,8 +8,8 @@ export const useNotesStore = defineStore('notes', () => {
 
   const fetchNotes = async () => {
     if (!isFetched.value) {
-        isFetched.value = true;
         notes.value = await getRemote();
+        isFetched.value = true;
     }
     return notes.value;
   }

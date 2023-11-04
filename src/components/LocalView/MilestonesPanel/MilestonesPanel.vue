@@ -46,7 +46,8 @@ const calendarOptions: Ref<any> = ref({
             content: info.event.extendedProps.content,
             file: info.event.extendedProps.file,
         };
-    }
+    },
+    initialDate: "2023-10-01",
 });
 
 const formatDate = (date: string) => {
