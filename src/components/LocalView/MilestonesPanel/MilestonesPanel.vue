@@ -1,6 +1,11 @@
 <template>
-    <Dialog v-model:visible="visible" modal :header="selectedEvent?.title" :style="{ width: '50vw' }">
-        <span v-html="selectedEvent?.content" />
+    <Message class="mb-3">Clicking on each milestone shows its submission.</Message>
+
+    <Dialog v-model:visible="visible" modal :header="selectedEvent?.title" style="min-width: 50vw;">
+        <div v-if="selectedEvent?.file">
+            <Button icon="pi pi-external-link" :label="selectedEvent.file" link @click="openPDF('/~truongd1/assets/files/' + selectedEvent.file)" />
+        </div>
+        <span v-else v-html="selectedEvent?.content" />
     </Dialog>
     <div class="flex justify-content-center">
         <div style="width: 800px;">
@@ -15,14 +20,20 @@ import { ref, onBeforeMount, type Ref } from 'vue';
 import { useNotesStore } from '@/stores/note';
 import { getMilestones } from '@/utils/firebase';
 
+import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
+import Message from 'primevue/message';
 
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
 const visible = ref(false);
-const selectedEvent: Ref<{title: string, content: string} | null> = ref(null);
+const selectedEvent: Ref<{title: string, content: string, file: string} | null> = ref(null);
+
+const openPDF = (file: string) => {
+    window.open(file);
+}
 
 const calendarOptions: Ref<any> = ref({
     plugins: [ dayGridPlugin, interactionPlugin ],
@@ -30,7 +41,11 @@ const calendarOptions: Ref<any> = ref({
     events: [],
     eventClick: (info: any) => {
         visible.value = true;
-        selectedEvent.value = {title: info.event.title, content: info.event.extendedProps.content};
+        selectedEvent.value = {
+            title: info.event.title,
+            content: info.event.extendedProps.content,
+            file: info.event.extendedProps.file,
+        };
     }
 });
 
@@ -58,13 +73,13 @@ onBeforeMount(async () => {
             const date = new Date(milestone.date);
             if (date < new Date()) {
                 color = 'green';
-                label += " - Completed";
             }
         }
         calendarOptions.value.events.push({
             date: formatDate(milestone.date),
             title: label,
             color,
+            file: milestone.file,
         });
     });
 });

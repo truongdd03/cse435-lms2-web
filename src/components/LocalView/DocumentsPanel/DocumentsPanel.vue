@@ -8,8 +8,8 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
 
-import Requirements from '/assets/CSE435_LMS2_requirements.pdf';
-import CustomerMeeting from '/assets/LMS2_List_of_Questions.pdf';
+import Requirements from '/assets/files/CSE435_LMS2_requirements.pdf';
+import CustomerMeeting from '/assets/files/LMS2_List_of_Questions.pdf';
 
 const openPDF = (file: string) => {
     window.open(file);

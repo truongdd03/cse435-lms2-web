@@ -10,6 +10,7 @@ export interface Milestones {
     label: string,
     date: string,
     color: string,
+    file: string,
 }
 
 export const updateRemote = async (date: string, content: string) => {

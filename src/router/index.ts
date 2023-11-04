@@ -43,7 +43,7 @@ const router = createRouter({
 router.beforeEach((to) => {
   console.log(to);
   if (to.path == '/local') {
-    const password = window.prompt("Enter Password");
+    const password = window.prompt("Enter Password (Same as class's zoom password)");
 
     if (password == import.meta.env.VITE_NOTE_PASSWORD) {
       return true;
