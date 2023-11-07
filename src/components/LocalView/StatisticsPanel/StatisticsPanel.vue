@@ -1,4 +1,5 @@
 <template>
+    <Message class="mb-3">The meeting time and number of commits on this website repo are recorded and displayed below.</Message>
     <div class="flex m-3 mb-3">
         <h3><b>Number of Meetings:</b> {{ meetingNotes.length }}</h3>
         <h3 class="ml-auto"><b>Total Meeting Time:</b> {{ meetingTime }} (mins)</h3>
@@ -8,6 +9,7 @@
 
 <script setup lang="ts">
 import Chart from 'primevue/chart';
+import Message from 'primevue/message';
 
 import { ref, onMounted, type Ref } from "vue";
 import { useNotesStore } from '@/stores/note';
@@ -88,7 +90,7 @@ const setChartData = (commitDates: string[]) => {
                 fill: false,
                 borderColor: documentStyle.getPropertyValue('--blue-500'),
                 yAxisID: 'time',
-                tension: 0.4
+                tension: 0.1
             },
             {
                 type: 'bar',
