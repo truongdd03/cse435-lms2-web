@@ -12,62 +12,96 @@ import Chart from 'primevue/chart';
 import { ref, onMounted, type Ref } from "vue";
 import { useNotesStore } from '@/stores/note';
 import type { Note } from '@/utils/firebase';
+import { getCommitDates } from '@/utils/github';
 
 const meetingNotes: Ref<Note[]> = ref([]);
 const meetingTime = ref(0);
 
+const chartData = ref();
+const chartOptions = ref();
+
 onMounted(async () => {
     meetingNotes.value = await useNotesStore().fetchNotes();
+    const commitDates = await getCommitDates();
 
-    chartData.value = setChartData();
+    chartData.value = setChartData(commitDates);
 
-    console.log(chartData.value);
     chartOptions.value = setChartOptions();
 });
 
-const chartData = ref();
-const chartOptions = ref();
-        
-const setChartData = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
+const isSameDay = (dateA: Date, dateB: Date) => {
+    return dateA.getDate() == dateB.getDate() && dateA.getMonth() == dateB.getMonth() && dateA.getFullYear() == dateB.getFullYear();
+}
 
-    const len = meetingNotes.value.length;
+const setChartData = (commitDates: string[]) => {
+    // Find time interval of both datasets
+    const startDate = new Date(commitDates[commitDates.length - 1]);
+    let endDate = new Date(meetingNotes.value[0].date);
+    let lastCommitDate = new Date(commitDates[0]);
+    if (endDate < lastCommitDate) {
+        endDate = lastCommitDate;
+    }
+    endDate = new Date(endDate.setDate(endDate.getDate() + 1));
+
     const labels: string[] = [];
-    const data: number[] = [];
-    
-    let loop = new Date(meetingNotes.value[len - 1].date);
-    // Index in meetings
-    let id = len - 1;
-    // Meetings is sort descreasing by date, so the meeting at index 0 is most recent.
-    const end = new Date(meetingNotes.value[0].date);
+    const meetingData: number[] = [];
+    const commitData: number[] = [];
 
-    while (loop <= end) {
-        labels.push(loop.toISOString().split('T')[0]);
-        if (loop.getTime() == (new Date(meetingNotes.value[id].date).getTime())) {
-            data.push(meetingNotes.value[id].time);
-            meetingTime.value += meetingNotes.value[id].time;
-            id -= 1;
+    let loop = startDate;
+    // Index in meetings
+    let mId = meetingNotes.value.length - 1;
+    // Index in commits
+    let cId = commitDates.length - 1;
+
+    while (loop <= endDate) {
+        // Get label
+        labels.push(loop.getMonth() + '/' + loop.getDate() + '/' + loop.getFullYear());
+
+        // Get data for meeting time
+        if (mId >= 0 && isSameDay(loop, new Date(meetingNotes.value[mId].date))) {
+            meetingData.push(meetingNotes.value[mId].time);
+            meetingTime.value += meetingNotes.value[mId].time;
+            mId -= 1;
         } else {
-            data.push(0);
+            meetingData.push(0);
         }
+
+        // Get data for website commit
+        let cnt = 0;
+        while (cId >= 0 && isSameDay(loop, new Date(commitDates[cId]))) {
+            cnt += 1;
+            cId -= 1;
+        }
+        commitData.push(cnt);
+
         const newDate = loop.setDate(loop.getDate() + 1);
         loop = new Date(newDate);
     }
 
-
+    const documentStyle = getComputedStyle(document.documentElement);
     return {
         labels: labels,
         datasets: [
             {
                 label: 'Meeting Time (mins)',
-                data: data,
+                data: meetingData,
                 fill: false,
                 borderColor: documentStyle.getPropertyValue('--blue-500'),
+                yAxisID: 'time',
                 tension: 0.4
             },
+            {
+                type: 'bar',
+                label: 'Website Commits',
+                data: commitData,
+                backgroundColor: documentStyle.getPropertyValue('--yellow-500'),
+                borderWidth: 2,
+                yAxisID: 'commits',
+            }
         ]
     };
 };
+
 const setChartOptions = () => {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
@@ -93,11 +127,26 @@ const setChartOptions = () => {
                     color: surfaceBorder
                 }
             },
-            y: {
+            time: {
+                type: 'linear',
+                display: true,
+                position: 'left',
                 ticks: {
                     color: textColorSecondary
                 },
                 grid: {
+                    color: surfaceBorder
+                }
+            },
+            commits: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                ticks: {
+                    color: textColorSecondary
+                },
+                grid: {
+                    drawOnChartArea: false,
                     color: surfaceBorder
                 }
             }
