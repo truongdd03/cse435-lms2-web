@@ -7,9 +7,11 @@
         <TabPanel header="Meeting Notes">
             <NotesPanel></NotesPanel>
         </TabPanel>
-        <TabPanel header="Discussion">
-        </TabPanel>
+        <!-- <TabPanel header="Discussion">
+        </TabPanel> -->
         <TabPanel header="Dialog w/ Customer">
+            <Button icon="pi pi-external-link" label="SRS_Feedback" link
+                @click="openPDF('/~truongd1/assets/files/SRS_Feedback.pdf')" />
         </TabPanel>
         <TabPanel header="Statistics">
             <StatisticsPanel></StatisticsPanel>
@@ -19,6 +21,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import Button from 'primevue/button';
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
 
@@ -27,6 +30,10 @@ import StatisticsPanel from '../components/LocalView/StatisticsPanel/StatisticsP
 import MilestonesPanel from '../components/LocalView/MilestonesPanel/MilestonesPanel.vue';
 
 const active = ref(0);
+
+const openPDF = (file: string) => {
+    window.open(file);
+}
 </script>
 
 <style>

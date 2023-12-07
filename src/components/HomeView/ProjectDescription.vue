@@ -23,8 +23,8 @@
                     LMS will integrate data from various sensors for precise lane detection to provide assistance
                     in positioning the vehicle within a lane.</p>
                 </div>
-                <Button class="m-2" icon="pi pi-external-link" label="Full Description (PDF)" outlined @click="openProject"></Button>
-                <Button class="m-2" label="SRS" outlined></Button>
+                <Button class="m-2" icon="pi pi-external-link" label="Full Description (PDF)" outlined @click="openFile(Project)"></Button>
+                <Button class="m-2" label="SRS" outlined @click="openFile(SRS)"></Button>
                 <Button class="m-2" label="Prototype" outlined @click="navigate('prototype')"></Button>
                 <Button class="m-2" label="Bibliography" outlined @click="navigate('bibliography')"></Button>
             </template>
@@ -37,13 +37,14 @@ import Card from 'primevue/card';
 import Button from 'primevue/button';
 
 import Project from '/assets/2023-LMS-GM-Agrawal.pdf';
+import SRS from '/assets/CSE435_LMS2_SRSv3.pdf';
 import image from '/assets/images/highway.jpeg';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const openProject = () => {
-    window.open(Project);
+const openFile = (file: any) => {
+    window.open(file);
 }
 
 const navigate = (path: string) => {
